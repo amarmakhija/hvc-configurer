@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CustomCard from '../box';
+import Instance from '../../instance/Instance';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -60,13 +61,8 @@ export default function ImageTab(props:any) {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons="on"
-          indicatorColor="primary"
-          textColor="primary"
+        <Tabs value={value} onChange={handleChange} variant="scrollable"
+          scrollButtons="on"indicatorColor="primary" textColor="primary"
           aria-label="scrollable force tabs example"
         >
           <Tab label="Choose Image" {...a11yProps(0)} />
@@ -77,7 +73,7 @@ export default function ImageTab(props:any) {
         <CustomCard data={data} setData = {setData} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <Instance/>
       </TabPanel>
     </div>
   );

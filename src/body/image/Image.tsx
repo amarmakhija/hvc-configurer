@@ -63,7 +63,7 @@ export default function Image(props:any) {
     },
     ];
 
-    const dataWithoutWindow = dataWithWindow.filter(item=>item.title!="Microsoft Window Server 2019 Base");
+    const dataWithoutWindow = dataWithWindow.filter(item=>item.title!=="Microsoft Window Server 2019 Base");
     //us-east-1, us-east-2, us-west-1, india-1
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setRegion(event.target.value as string);
