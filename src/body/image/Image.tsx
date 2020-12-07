@@ -26,45 +26,42 @@ const useStyles = makeStyles((theme: Theme) =>
       },
   }),
 );
-
+const dataWithWindow = [{
+  title : "Linux 2 Image",
+  desc : "Linux 2 comes with 5 year of support.It provide linux karnel 4.14 turned for optimal Performance.",
+  radio1 : "64-bit(x86)",
+  radio2 : "64-bit(ARM)"
+},
+{
+  title : "Ubuntu Server 18.04 LTS",
+  desc : "Linux 2 comes with 5 year of support.It provide linux karnel 4.14 turned for optimal Performance.",
+  radio1 : "64-bit(x86)",
+  radio2 : "64-bit(ARM)"
+},
+{
+  title : "Red Hat Enterprise Linux 8",
+  desc : "Linux 2 comes with 5 year of support.It provide linux karnel 4.14 turned for optimal Performance.",
+  radio1 : "64-bit(x86)",
+  radio2 : "64-bit(ARM)"
+},
+{
+  title : "Microsoft Window Server 2019 Base",
+  desc : "Microsoft comes with 5 year of support..",
+  radio1 : "64-bit(ARM)",
+},
+{
+  title : "SUSE Linux Enterprise Server",
+  desc : "Linux 2 comes with 5 year of support.It provide linux karnel 4.14 turned for optimal Performance.",
+  radio1 : "64-bit(x86)",
+  radio2 : "64-bit(ARM)"
+},
+];
 export default function Image(props:any) {
     const classes = useStyles();
     const [region, setRegion] = React.useState('');
     const[data,setData] = React.useState([{}]);
-    const{costExtimate} = props;
-    const dataWithWindow = [{
-        title : "Linux 2 Image",
-        desc : "Linux 2 comes with 5 year of support.It provide linux karnel 4.14 turned for optimal Performance.",
-        radio1 : "64-bit(x86)",
-        radio2 : "64-bit(ARM)"
-    },
-    {
-        title : "Ubuntu Server 18.04 LTS",
-        desc : "Linux 2 comes with 5 year of support.It provide linux karnel 4.14 turned for optimal Performance.",
-        radio1 : "64-bit(x86)",
-        radio2 : "64-bit(ARM)"
-    },
-    {
-        title : "Red Hat Enterprise Linux 8",
-        desc : "Linux 2 comes with 5 year of support.It provide linux karnel 4.14 turned for optimal Performance.",
-        radio1 : "64-bit(x86)",
-        radio2 : "64-bit(ARM)"
-    },
-    {
-        title : "Microsoft Window Server 2019 Base",
-        desc : "Microsoft comes with 5 year of support..",
-        radio1 : "64-bit(x86)",
-    },
-    {
-        title : "SUSE Linux Enterprise Server",
-        desc : "Linux 2 comes with 5 year of support.It provide linux karnel 4.14 turned for optimal Performance.",
-        radio1 : "64-bit(x86)",
-        radio2 : "64-bit(ARM)"
-    },
-    ];
-
+    const{imageData,core,memory,costExtimate,setCore,setMemory,instance,setInstance ,itemList ,setItemList,bandwidth,setBandwidth,securityName,setSecurityName,ruleList,setRuleList,deleteItem} = props;
     const dataWithoutWindow = dataWithWindow.filter(item=>item.title!=="Microsoft Window Server 2019 Base");
-    //us-east-1, us-east-2, us-west-1, india-1
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setRegion(event.target.value as string);
         if(event.target.value === 'us-east-1' || event.target.value === 'us-east-2'){
@@ -78,7 +75,7 @@ export default function Image(props:any) {
         <Grid container spacing={3}>
           
           <Grid item xs={6} sm={4}>
-            <h1>Choose Image</h1>
+            <h1>Choose Configuration</h1>
           </Grid>
           <Grid item xs={6} sm={4}>
             
@@ -88,7 +85,7 @@ export default function Image(props:any) {
                 <InputLabel id="demo-simple-select-label">Region</InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                id="demo-simple-select" 
                 value={region}
                 onChange={handleChange}
                 >
@@ -101,7 +98,11 @@ export default function Image(props:any) {
           </Grid>
           
         </Grid>
-            <ImageTab data = {data} setData = {costExtimate}/>
+            <ImageTab imageData = {imageData} core = {core} memory = {memory} data = {data} setData = {costExtimate} setCore = {setCore} setMemory = {setMemory} 
+            instance ={instance} setInstance = {setInstance} itemList = {itemList} setItemList = {setItemList}
+            bandwidth = {bandwidth} setBandwidth = {setBandwidth} securityName = {securityName} 
+            setSecurityName={setSecurityName} ruleList = {ruleList} setRuleList={setRuleList} deleteItem={deleteItem}
+            />
       </div>
     );
 }

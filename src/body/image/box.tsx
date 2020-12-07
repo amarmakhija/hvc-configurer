@@ -21,15 +21,17 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function CustomCard(props:any){
 
     const classes = useStyles();
-    const {data,setData} =props;        
-
+    const {data,setData,selectedBit,setSelectedBit,imageData} =props;        
+    console.log("imageData",imageData);
     return (
-        
         <Box color="text.primary">
             <div className={classes.root}>
-                {data.map((item:any)=>(<BoxItem obj = {item} setObject= {setData}/>))}
+                {data.map((item:any)=>{
+                  return imageData && imageData.title && item.title ===imageData.title ?
+                  (<BoxItem obj = {item} setObject= {setData} selectedBit = {selectedBit} setSelectedBit = {setSelectedBit} />)
+                  :(<BoxItem obj = {item} setObject= {setData} selectedBit ='' setSelectedBit = {setSelectedBit} />)
+                })}
              </div>
-             
         </Box>
     );
 }

@@ -27,18 +27,21 @@ const useStyles = makeStyles((theme: Theme) =>
       },
   }),
 );
-export default function GeneralPurpose(props:any){
-    const{data} = props;
+
+export default function AllPurposeInstance(props:any){
+    const{data,setInstance,availCores,availMemory,setParentCore,setParentMemory} = props;
+    setInstance(data);
     const classes = useStyles();
-    const [cores, setCores] = React.useState('');
-    const [memory, setMemory] = React.useState('');
+    const [cores, setCores] = React.useState(props.core);
+    const [memory, setMemory] = React.useState(props.memory);
 
     const handleCoreChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setCores(event.target.value as string);
+        setParentCore(event.target.value as string)
       };
       const handleMemoryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setMemory(event.target.value as string);
-        console.log("memory",memory)
+        setParentMemory(event.target.value as string)
       };
     return(
         <div>
@@ -57,9 +60,10 @@ export default function GeneralPurpose(props:any){
                     value={cores}
                     onChange={handleCoreChange}
                     >
-                        <MenuItem value={"1"}>1 core</MenuItem>
-                        <MenuItem value={"2"}>2 core</MenuItem>
-                        <MenuItem value={"4"}>4 core</MenuItem>
+                    {availCores.map((item:any) =>(
+                        <MenuItem key={item.key} value={item.value}>{item.value}</MenuItem>
+                    ))}
+                        
                     </Select>
                 </FormControl>
             </Grid>
@@ -72,10 +76,9 @@ export default function GeneralPurpose(props:any){
                     value={memory}
                     onChange={handleMemoryChange}
                     >
-                        <MenuItem value={"256"}>256 MB</MenuItem>
-                        <MenuItem value={"512"}>512 MB</MenuItem>
-                        <MenuItem value={"1"}>1 GB</MenuItem>
-                        <MenuItem value={"4"}>4 GB</MenuItem>
+                      {availMemory.map((item:any) =>(
+                        <MenuItem key={item.key} value={item.value}>{item.value}</MenuItem>
+                    ))}
                     </Select>
                 </FormControl>
             </Grid>

@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CustomCard from '../box';
 import Instance from '../../instance/Instance';
+import Storage from '../../storage/Storage';
+import ConfigureSecurity from '../../configureSecurity/ConfigureSecurity';
+import Review from '../../review/Review';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -52,9 +55,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function ImageTab(props:any) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const {data,setData} = props;
-
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const[selectedBit,setSelectedBit] = React.useState('')
+  const [securityGroup,setSecurityGroup] = React.useState('');
+  const {imageData,core,memory,data,setData,setCore,setMemory,
+    instance,setInstance,itemList,setItemList,
+    bandwidth,setBandwidth,securityName,
+    setSecurityName,ruleList,setRuleList,deleteItem} = props;
+  console.log(imageData);
+  const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
 
@@ -67,13 +75,29 @@ export default function ImageTab(props:any) {
         >
           <Tab label="Choose Image" {...a11yProps(0)} />
           <Tab label="Choose Instance"  {...a11yProps(1)} />
+          <Tab label="Choose Storage and Network"  {...a11yProps(2)} />
+          <Tab label="Configure Security"  {...a11yProps(3)} />
+          <Tab label="Review and Lunch"  {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <CustomCard data={data} setData = {setData} />
+        <CustomCard data={data} setData = {setData} imageData={imageData} selectedBit = {selectedBit} setSelectedBit = {setSelectedBit}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Instance/>
+        <Instance instance ={instance} core = {core} memory = {memory} setCore = {setCore} setMemory = {setMemory} setInstance = {setInstance} />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Storage instance ={instance} itemList = {itemList} setItemList = {setItemList} bandwidth = {bandwidth} setBandwidth = {setBandwidth} deleteItem={deleteItem}/>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <ConfigureSecurity securityName = {securityName} setSecurityName={setSecurityName} ruleList = {ruleList} 
+        setRuleList={setRuleList}  securityGroup={securityGroup} setSecurityGroup={setSecurityGroup} />
+      </TabPanel>
+      <TabPanel value={value} index={4}> 
+           <Review imageData = {imageData} selectedBit = {selectedBit} core = {core} memory = {memory} instance= {instance}
+                    bandwidth = {bandwidth} itemList = {itemList} securityName = {securityName} ruleList = {ruleList}
+                    setValue ={setValue}
+           />
       </TabPanel>
     </div>
   );

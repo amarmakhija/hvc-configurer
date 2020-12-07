@@ -7,6 +7,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { Button } from '@material-ui/core';
+import BorderAllTwoToneIcon from '@material-ui/icons/BorderAll';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,21 +17,23 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(2),
       textAlign: 'center',
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.primary,
     },
   }),
 );
-export default function BoxItem(props:any){
-    const [value,setValue] = React.useState("");
-    const {obj,setObject} = props;
+export default function  BoxItem(props:any){
+    const [value,setValue] = React.useState(props.selectedBit);
+    const {obj,setObject,setSelectedBit} = props;
+    console.log(props.selectedBit);
     
     const handleRadioChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setValue(event.target.value as string);
+        setSelectedBit(event.target.value as string);
       };
     return (
         <Grid container spacing={3}>
         <Grid item xs={1}>
-        <image></image>
+          {obj.title?<BorderAllTwoToneIcon style={{ fontSize: 80 , color:"primary"} }/>:null}
         </Grid>
 
         <Grid item xs={8}>
